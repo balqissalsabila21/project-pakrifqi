@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KALKULATOR</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #1e1e2d;
+            color: #fff;
+        }
+
+        .calculator {
+            background: linear-gradient(145deg, #2a2a3d, #222232);
+            border-radius: 20px;
+            box-shadow: 0 8px 10px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            width: 320px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #f4f4f4;
+        }
+
+        .display {
+            background: #2c2c3e;
+            color: #ffffff;
+            font-size: 2rem;
+            border: none;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: right;
+            width: 100%;
+            margin-bottom: 20px;
+            box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            background: linear-gradient(145deg, #3b3b4f, #2a2a3d);
+            border: none;
+            color: #fff;
+            border-radius: 50%;
+            padding: 15px;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            background: #4a4a63;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.6);
+        }
+
+        button:active {
+            transform: translateY(1px);
+            box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        button.operator {
+            background: #f57c00;
+        }
+
+        button.equal {
+            background: #0fa64c;
+            border-radius: 15px;
+        }
+
+        button.clear {
+            background: #e53935;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>KALKULATOR</h1>
+        <input type="text" id="display" class="display" placeholder="0" disabled>
+        <div class="buttons">
+            <button class="clear" onclick="clearDisplay()">C</button>
+            <button class="operator" onclick="addToDisplay('/')">÷</button>
+            <button class="operator" onclick="addToDisplay('*')">×</button>
+            <button class="operator" onclick="addToDisplay('-')">−</button>
+            <button class="operator" onclick="addToDisplay('+')">+</button>
+
+            <!-- Baris 1: Angka 1-5 -->
+            <button onclick="addToDisplay('1')">1</button>
+            <button onclick="addToDisplay('2')">2</button>
+            <button onclick="addToDisplay('3')">3</button>
+            <button onclick="addToDisplay('4')">4</button>
+            <button onclick="addToDisplay('5')">5</button>
+
+            <!-- Baris 2: Angka 6-0 -->
+            <button onclick="addToDisplay('6')">6</button>
+            <button onclick="addToDisplay('7')">7</button>
+            <button onclick="addToDisplay('8')">8</button>
+            <button onclick="addToDisplay('9')">9</button>
+            <button onclick="addToDisplay('0')">0</button>
+
+            <!-- Baris 3: Titik (.), Sama Dengan, √, %, dan Hapus -->
+            <button onclick="addToDisplay('.')">.</button>
+            <button onclick="calculateSquareRoot()">√</button>
+            <button onclick="calculatePercentage()">%</button>
+            <button onclick="deleteLast()">←</button>
+            <button class="equal" onclick="calculateResult()">=</button>
+        </div>
+    </div>
+
+    <script>
+        function addToDisplay(value) {
+            document.getElementById('display').value += value;
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+
+        function calculateResult() {
+            try {
+                let result = eval(document.getElementById('display').value);
+                document.getElementById('display').value = result;
+            } catch (error) {
+                document.getElementById('display').value = 'Error';
+            }
+        }
+
+        function calculateSquareRoot() {
+            let display = document.getElementById('display');
+            try {
+                display.value = Math.sqrt(eval(display.value));
+            } catch (error) {
+                display.value = 'Error';
+            }
+        }
+
+        function calculatePercentage() {
+            let display = document.getElementById('display');
+            try {
+                display.value = eval(display.value) / 100;
+            } catch (error) {
+                display.value = 'Error';
+            }
+        }
+
+        function deleteLast() {
+            let display = document.getElementById('display');
+            display.value = display.value.slice(0, -1);
+        }
+    </script>
+</body>
+</html>
